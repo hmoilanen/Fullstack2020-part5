@@ -5,6 +5,7 @@ import Blog from './Blog'
 
 describe('<Blog />', () => {
 	let component
+
 	const blog = {
 		title: 'test title',
 		author: 'test author',
@@ -57,5 +58,23 @@ describe('<Blog />', () => {
 
 		expect(toggleable).toHaveTextContent(blog.url)
 		expect(toggleable).toHaveTextContent(blog.likes)
+	})
+
+	test('if toggled twice, event handler is called twice', () => {
+		const mockHandler = jest.fn()
+
+		component = render(
+			<Blog blog={blog} addLike={mockHandler} />
+		)
+
+		const toggleButton = component.container.querySelector('.blogToggler')
+		fireEvent.click(toggleButton)
+
+		const likeButton = component.container.querySelector('.blogLike')
+
+		fireEvent.click(likeButton)
+		fireEvent.click(likeButton)
+
+		expect(mockHandler.mock.calls).toHaveLength(2)
 	})
 })

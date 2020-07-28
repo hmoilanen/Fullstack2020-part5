@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, addLike }) => {
 	const [showAll, setShowAll] = useState(false)
 
 	const styling = {
@@ -24,7 +24,10 @@ const Blog = ({ blog }) => {
 				<div className='blogToggleable'>
 					<div>
 						{blog.url}
-						<button>like</button>
+						<button
+							onClick={() => addLike()}
+							className='blogLike'
+						>like</button>
 					</div>
 					<div>{blog.likes}</div>
 				</div>

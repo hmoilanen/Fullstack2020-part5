@@ -64,6 +64,10 @@ const App = () => {
 		setBlogs(blogs.concat(blogToAdd))
 	}
 
+	const addLike = () => {
+		console.log('like added (but not saved to db :)')
+	}
+
 	const setFeedback = (feedback) => {
 		const delay = feedback && feedback.delay
 			? feedback.delay
@@ -117,7 +121,11 @@ const App = () => {
 			</Togglable>
 			<br/>
 			{blogs.map(blog =>
-				<Blog key={blog.id} blog={blog} />
+				<Blog
+					key={blog.id}
+					blog={blog}
+					addLike={addLike}
+				/>
 			)}
 		</div>
 	)
