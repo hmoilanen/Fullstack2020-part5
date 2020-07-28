@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import blogService from '../services/blogs'
 
-//const AddBlogs = ({ blogs, setBlogs, setFeedback }) => {
 const AddBlogs = ({ addBlog, setFeedback }) => {
 	const [title, setTitle] = useState('')
 	const [author, setAuthor] = useState('')
@@ -64,6 +64,11 @@ const AddBlogs = ({ addBlog, setFeedback }) => {
 			<button type="submit">add blog</button>
 		</form>
 	)
+}
+
+AddBlogs.propTypes = {
+  addBlog: PropTypes.func.isRequired,
+  setFeedback: PropTypes.func.isRequired
 }
 
 export default AddBlogs
