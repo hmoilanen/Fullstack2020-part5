@@ -16,7 +16,7 @@ const Togglable = (props) => {
 		)
 	}
 
-  return (
+	return (
 		<div>
 			<button onClick={toggleEnabled}>{props.buttonText}</button>
 		</div>

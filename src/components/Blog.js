@@ -26,7 +26,7 @@ const Blog = ({ blog }) => {
 					<div>{blog.likes}</div>
 				</div>
 			}
-		</div>	
+		</div>
 	)
 }
 

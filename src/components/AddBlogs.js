@@ -17,7 +17,6 @@ const AddBlogs = ({ addBlog, setFeedback }) => {
 			}
 
 			const createdBlog = await blogService.create(blogToAdd)
-			//setBlogs(blogs.concat(createdBlog))
 			addBlog(createdBlog)
 			setFeedback({ message: `New blog (${createdBlog.title}) added`, success: true })
 
@@ -28,14 +27,14 @@ const AddBlogs = ({ addBlog, setFeedback }) => {
 		} catch (exception) {
 			console.log(exception)
 			setFeedback({ message: `Something went wrong: ${exception}`, success: false })
-    }
+		}
 	}
 
 	return (
 		<form onSubmit={handleAddingBlog}>
 			<h4>Create new blog</h4>
 			<div>
-				title: 
+				title:
 				<input
 					type="text"
 					value={title}
@@ -44,7 +43,7 @@ const AddBlogs = ({ addBlog, setFeedback }) => {
 				/>
 			</div>
 			<div>
-				author: 
+				author:
 				<input
 					type="text"
 					value={author}
@@ -53,7 +52,7 @@ const AddBlogs = ({ addBlog, setFeedback }) => {
 				/>
 			</div>
 			<div>
-				url: 
+				url:
 				<input
 					type="text"
 					value={url}
@@ -67,8 +66,8 @@ const AddBlogs = ({ addBlog, setFeedback }) => {
 }
 
 AddBlogs.propTypes = {
-  addBlog: PropTypes.func.isRequired,
-  setFeedback: PropTypes.func.isRequired
+	addBlog: PropTypes.func.isRequired,
+	setFeedback: PropTypes.func.isRequired
 }
 
 export default AddBlogs
