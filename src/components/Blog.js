@@ -11,14 +11,17 @@ const Blog = ({ blog }) => {
 
 	return (
 		<div style={styling}>
-			<div>
+			<div className='blogVisible'>
 				{blog.title}
-				<button onClick={() => setShowAll(!showAll)}>view</button>
+				<button
+					onClick={() => setShowAll(!showAll)}
+					className='blogToggler'
+				>view</button>
+				<div>{blog.author}</div>
 			</div>
 			{!showAll ?
 				false :
-				<div>
-					<div>{blog.author}</div>
+				<div className='blogToggleable'>
 					<div>
 						{blog.url}
 						<button>like</button>
