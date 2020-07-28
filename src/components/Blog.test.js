@@ -48,4 +48,14 @@ describe('<Blog />', () => {
 			component.container.querySelector('.blogToggleable')
 		).toBeNull()
 	})
+
+	test('show url and likes correctly when blog is toggled', () => {
+		const button = component.container.querySelector('.blogToggler')
+		fireEvent.click(button)
+
+		const toggleable = component.container.querySelector('.blogToggleable')
+
+		expect(toggleable).toHaveTextContent(blog.url)
+		expect(toggleable).toHaveTextContent(blog.likes)
+	})
 })
