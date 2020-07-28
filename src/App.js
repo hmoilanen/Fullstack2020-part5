@@ -53,7 +53,7 @@ const App = () => {
       const response = await loginService.logout()
 			console.log(response)
 
-			window.localStorage.removeItem('user')
+			window.localStorage.removeItem('loggedUser')
 
       setUser(null)
     } catch (exception) {
