@@ -19,6 +19,7 @@ const App = () => {
       setBlogs( blogs )
     )  
 	}, [])
+	//console.log(blogs);
 
   useEffect(() => {
 		const loggedUser = window.localStorage.getItem('loggedUser') || null
@@ -109,11 +110,6 @@ const App = () => {
 			</div>
 			<br/>
 			<Togglable buttonText="new note">
-				{/* <AddBlogs
-					blogs={blogs}
-					setBlogs={setBlogs}
-					setFeedback={setFeedback}
-				/> */}
 				<AddBlogs
 					addBlog={addBlog}
 					setFeedback={setFeedback}
