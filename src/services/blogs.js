@@ -6,4 +6,17 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-export default { getAll }
+const create = (blog) => {
+	const token = `bearer ${JSON.parse(window.localStorage.getItem('loggedUser')).token }` || null
+	const config = {
+    headers: { Authorization: token },
+	}
+	
+	const request = axios.post(baseUrl, blog, config)
+	return request.then(response => response.data)
+}
+
+export default {
+	getAll,
+	create
+}

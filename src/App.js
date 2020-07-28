@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import AddBlogs from './components/AddBlogs'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -21,18 +22,15 @@ const App = () => {
 		if (loggedUser) {
 			setUser(JSON.parse(loggedUser))
 		}
-    /* loginService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )   */
 	}, [])
-	
+	console.log(blogs)
 	const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login({
         username, password,
 			})
-			console.log(user);
+			//console.log(user)
 
 			window.localStorage.setItem('loggedUser', JSON.stringify(user))
 
@@ -41,23 +39,15 @@ const App = () => {
       setPassword('')
     } catch (exception) {
 			console.log(exception);
-      /* setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000) */
     }
 	}
 
 	const handleLogout = async () => {
 		try {
-      const response = await loginService.logout()
-			console.log(response)
-
 			window.localStorage.removeItem('loggedUser')
-
       setUser(null)
     } catch (exception) {
-			console.log(exception);
+			console.log(exception)
     }
 	}
 	
@@ -93,6 +83,11 @@ const App = () => {
 					onClick={handleLogout}
 				>logout</button>
 			</div>
+			<br/>
+			<AddBlogs
+				blogs={blogs}
+				setBlogs={setBlogs}
+			/>
 			<br/>
 			{blogs.map(blog =>
 				<Blog key={blog.id} blog={blog} />
