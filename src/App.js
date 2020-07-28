@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AddBlogs from './components/AddBlogs'
 import Blog from './components/Blog'
+import Togglable from './components/Togglable'
 import Feedback from './components/Feedback'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -103,11 +104,13 @@ const App = () => {
 				>logout</button>
 			</div>
 			<br/>
-			<AddBlogs
-				blogs={blogs}
-				setBlogs={setBlogs}
-				setFeedback={setFeedback}
-			/>
+			<Togglable buttonText="new note">
+				<AddBlogs
+					blogs={blogs}
+					setBlogs={setBlogs}
+					setFeedback={setFeedback}
+				/>
+			</Togglable>
 			<br/>
 			{blogs.map(blog =>
 				<Blog key={blog.id} blog={blog} />
