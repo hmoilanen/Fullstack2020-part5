@@ -12,7 +12,7 @@ const App = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [user, setUser] = useState(null)
-	const [ newFeedback, setNewFeedback ] = useState('')
+	const [newFeedback, setNewFeedback] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -57,6 +57,10 @@ const App = () => {
 			console.log(exception)
 			setFeedback({ message: `Problem logging out: ${exception}`, success: false })
     }
+	}
+
+	const addBlog = (blogToAdd) => {
+		setBlogs(blogs.concat(blogToAdd))
 	}
 
 	const setFeedback = (feedback) => {
@@ -105,9 +109,13 @@ const App = () => {
 			</div>
 			<br/>
 			<Togglable buttonText="new note">
-				<AddBlogs
+				{/* <AddBlogs
 					blogs={blogs}
 					setBlogs={setBlogs}
+					setFeedback={setFeedback}
+				/> */}
+				<AddBlogs
+					addBlog={addBlog}
 					setFeedback={setFeedback}
 				/>
 			</Togglable>

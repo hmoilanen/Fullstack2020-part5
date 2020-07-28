@@ -10,15 +10,15 @@ const Togglable = (props) => {
 	if (enabled) {
 		return (
 			<div>
-				<button onClick={toggleEnabled}>{props.buttonText}</button>
+				{props.children}
+				<button onClick={toggleEnabled}>cancel</button>
 			</div>
 		)
 	}
 
   return (
 		<div>
-			{props.children}
-			<button onClick={toggleEnabled}>cancel</button>
+			<button onClick={toggleEnabled}>{props.buttonText}</button>
 		</div>
 	)
 }
