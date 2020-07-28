@@ -6,4 +6,12 @@ const login = async credentials => {
   return response.data
 }
 
-export default { login }
+const logout = async () => {
+	//const response = await axios.post(baseUrl, credentials)
+  //return response.data
+}
+
+export default {
+	login,
+	logout
+}

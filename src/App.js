@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+//import Axios from 'axios'
 
 const App = () => {
 	const [blogs, setBlogs] = useState([])
@@ -14,6 +15,16 @@ const App = () => {
       setBlogs( blogs )
     )  
 	}, [])
+
+  useEffect(() => {
+		const loggedUser = window.localStorage.getItem('loggedUser') || null
+		if (loggedUser) {
+			setUser(JSON.parse(loggedUser))
+		}
+    /* loginService.getAll().then(blogs =>
+      setBlogs( blogs )
+    )   */
+	}, [])
 	
 	const handleLogin = async (event) => {
     event.preventDefault()
@@ -22,6 +33,8 @@ const App = () => {
         username, password,
 			})
 			console.log(user);
+
+			window.localStorage.setItem('loggedUser', JSON.stringify(user))
 
       setUser(user)
       setUsername('')
@@ -32,6 +45,19 @@ const App = () => {
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000) */
+    }
+	}
+
+	const handleLogout = async () => {
+		try {
+      const response = await loginService.logout()
+			console.log(response)
+
+			window.localStorage.removeItem('user')
+
+      setUser(null)
+    } catch (exception) {
+			console.log(exception);
     }
 	}
 	
@@ -61,7 +87,12 @@ const App = () => {
 	
 	const blogView = () => (
 		<div>
-			<div>logged in as {user.username}</div>
+			<div>
+				logged in as {user.username}
+				<button
+					onClick={handleLogout}
+				>logout</button>
+			</div>
 			<br/>
 			{blogs.map(blog =>
 				<Blog key={blog.id} blog={blog} />
