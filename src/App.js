@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AddBlogs from './components/AddBlogs'
 import Blog from './components/Blog'
+import Feedback from './components/Feedback'
 import blogService from './services/blogs'
 import loginService from './services/login'
 //import Axios from 'axios'
@@ -10,6 +11,7 @@ const App = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [user, setUser] = useState(null)
+	const [ newFeedback, setNewFeedback ] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -23,7 +25,7 @@ const App = () => {
 			setUser(JSON.parse(loggedUser))
 		}
 	}, [])
-	console.log(blogs)
+
 	const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -32,6 +34,8 @@ const App = () => {
 			})
 			//console.log(user)
 
+			setFeedback({ message: `(${user.username}) logged in!`, success: true })
+
 			window.localStorage.setItem('loggedUser', JSON.stringify(user))
 
       setUser(user)
@@ -39,17 +43,32 @@ const App = () => {
       setPassword('')
     } catch (exception) {
 			console.log(exception);
+			setFeedback({ message: `Login failed: ${exception}`, success: false })
     }
 	}
 
 	const handleLogout = async () => {
 		try {
+			setFeedback({ message: `Logged out!`, success: true })
 			window.localStorage.removeItem('loggedUser')
       setUser(null)
     } catch (exception) {
 			console.log(exception)
+			setFeedback({ message: `Problem logging out: ${exception}`, success: false })
     }
 	}
+
+	const setFeedback = (feedback) => {
+    const delay = feedback && feedback.delay
+    ? feedback.delay
+    : 3000
+    
+    setNewFeedback(feedback)
+
+    setTimeout(() => {
+      setNewFeedback(false)
+    }, delay);
+  }
 	
 	const loginView = () => (
     <form onSubmit={handleLogin}>
@@ -87,6 +106,7 @@ const App = () => {
 			<AddBlogs
 				blogs={blogs}
 				setBlogs={setBlogs}
+				setFeedback={setFeedback}
 			/>
 			<br/>
 			{blogs.map(blog =>
@@ -98,6 +118,7 @@ const App = () => {
   return (
     <div>
 			<h2>{ user === null ? 'Login' : 'Blogs' }</h2>
+			<Feedback newFeedback={newFeedback}/>
 			{user === null
 				? loginView()
 				: blogView()
