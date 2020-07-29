@@ -38,4 +38,38 @@ describe('Blog app', function() {
 				.click()
 		})
 	})
+
+	describe('When logged in', function() {
+		beforeEach(function() {
+			cy.request('POST', 'http://localhost:3000/api/login', {
+				username: user.username, password: user.password
+			}).then(({ body }) => {
+				localStorage.setItem('loggedUser', JSON.stringify(body))
+				cy.visit('http://localhost:3000')
+			})
+		})
+		
+		it('a blog can be created', function() {
+			const newBlog = {
+				title: 'test-title',
+				author: 'test-author',
+				url: 'test-url',
+			}
+
+			cy.contains('new note')
+				.click()
+
+			cy.get('#title')
+				.type(newBlog.title)
+			cy.get('#author')
+				.type(newBlog.author)
+			cy.get('#url')
+				.type(newBlog.url)
+			
+			cy.contains('add blog')
+				.click()
+
+			cy.contains(newBlog.title && newBlog.author)
+		})
+	})
 })
