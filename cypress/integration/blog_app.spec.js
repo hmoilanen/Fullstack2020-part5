@@ -56,40 +56,28 @@ describe('Blog app', function() {
 		})
 		
 		it('a blog can be created', function() {
-			cy.contains('new note')
-				.click()
-
-			cy.get('#title')
-				.type(newBlog.title)
-			cy.get('#author')
-				.type(newBlog.author)
-			cy.get('#url')
-				.type(newBlog.url)
-			
-			cy.contains('add blog')
-				.click()
-
+			cy.addBlog(newBlog)
 			cy.contains(newBlog.title && newBlog.author)
 		})
 
 		it('user can like a blog', function() {
-			cy.contains('new note')
-				.click()
-
-			cy.get('#title')
-				.type(newBlog.title)
-			cy.get('#author')
-				.type(newBlog.author)
-			cy.get('#url')
-				.type(newBlog.url)
-			
-			cy.contains('add blog')
-				.click()
+			cy.addBlog(newBlog)
 
 			cy.contains('view')
 				.click()
 			cy.contains('like')
 				.click()
+		})
+
+		it('user can delete his own blog', function() {
+			cy.addBlog(newBlog)
+
+			cy.contains('view')
+				.click()
+			cy.contains('delete')
+				.click()
+
+			cy.get('html').should('not.contain', newBlog.title)
 		})
 	})
 })

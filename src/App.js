@@ -70,6 +70,18 @@ const App = () => {
 			setFeedback({ message: `Something went wrong: ${exception}`, success: false })
 		}
 	}
+	
+	const deleteBlog = async (blogToDelete) => {
+		try {
+			const deletedBlog = await blogService.remove(blogToDelete)
+
+			setBlogs(blogs.filter(blog => blog.id !== blogToDelete.id))
+			setFeedback({ message: `Blog (${deletedBlog.title}) deleted`, success: true })
+		} catch (exception) {
+			console.log(exception)
+			setFeedback({ message: `Something went wrong: ${exception}`, success: false })
+		}
+	}
 
 	const addLike = () => {
 		console.log('like added (but not saved to db :)')
@@ -134,6 +146,7 @@ const App = () => {
 					key={blog.id}
 					blog={blog}
 					addLike={addLike}
+					deleteBlog={deleteBlog}
 				/>
 			)}
 		</div>

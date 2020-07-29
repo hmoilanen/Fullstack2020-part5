@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog, addLike }) => {
+const Blog = ({ blog, addLike, deleteBlog }) => {
 	const [showAll, setShowAll] = useState(false)
 
 	const styling = {
@@ -22,14 +22,18 @@ const Blog = ({ blog, addLike }) => {
 			{!showAll ?
 				false :
 				<div className='blogToggleable'>
+					<div>{blog.url}</div>
 					<div>
-						{blog.url}
+						{blog.likes}
 						<button
 							onClick={() => addLike()}
 							className='blogLike'
 						>like</button>
 					</div>
-					<div>{blog.likes}</div>
+					<button
+						onClick={() => deleteBlog(blog)}
+						className='blogDelete'
+					>delete</button>
 				</div>
 			}
 		</div>

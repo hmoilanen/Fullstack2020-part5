@@ -11,6 +11,20 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
+Cypress.Commands.add("addBlog", (newBlog) => {
+	cy.contains('new note')
+		.click()
+
+	cy.get('#title')
+		.type(newBlog.title)
+	cy.get('#author')
+		.type(newBlog.author)
+	cy.get('#url')
+		.type(newBlog.url)
+
+	cy.contains('add blog')
+		.click()
+})
 //
 //
 // -- This is a child command --
