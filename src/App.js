@@ -92,6 +92,7 @@ const App = () => {
 			<div className="loginForm">
         username
 				<input
+					id="loginUsername"
 					type="text"
 					value={username}
 					name="Username"
@@ -101,6 +102,7 @@ const App = () => {
 			<div>
         password
 				<input
+					id="loginPassword"
 					type="password"
 					value={password}
 					name="Password"
