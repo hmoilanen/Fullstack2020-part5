@@ -89,7 +89,7 @@ const App = () => {
 
 	const loginView = () => (
 		<form onSubmit={handleLogin}>
-			<div>
+			<div className="loginForm">
         username
 				<input
 					type="text"
