@@ -60,8 +60,15 @@ const App = () => {
 		}
 	}
 
-	const addBlog = (blogToAdd) => {
-		setBlogs(blogs.concat(blogToAdd))
+	const addBlog = async (blogToAdd) => {
+		try {
+			const createdBlog = await blogService.create(blogToAdd)
+			setBlogs(blogs.concat(createdBlog))
+			setFeedback({ message: `New blog (${createdBlog.title}) added`, success: true })
+		} catch (exception) {
+			console.log(exception)
+			setFeedback({ message: `Something went wrong: ${exception}`, success: false })
+		}
 	}
 
 	const addLike = () => {
@@ -116,7 +123,7 @@ const App = () => {
 			<Togglable buttonText="new note">
 				<AddBlogs
 					addBlog={addBlog}
-					setFeedback={setFeedback}
+					/* setFeedback={setFeedback} */
 				/>
 			</Togglable>
 			<br/>

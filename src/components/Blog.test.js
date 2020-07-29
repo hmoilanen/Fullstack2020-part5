@@ -3,6 +3,8 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
 import Blog from './Blog'
 
+// see: https://jestjs.io/docs/en/using-matchers
+
 describe('<Blog />', () => {
 	let component
 
