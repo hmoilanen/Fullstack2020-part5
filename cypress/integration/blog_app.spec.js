@@ -40,6 +40,12 @@ describe('Blog app', function() {
 	})
 
 	describe('When logged in', function() {
+		const newBlog = {
+			title: 'test-title',
+			author: 'test-author',
+			url: 'test-url',
+		}
+
 		beforeEach(function() {
 			cy.request('POST', 'http://localhost:3000/api/login', {
 				username: user.username, password: user.password
@@ -50,12 +56,6 @@ describe('Blog app', function() {
 		})
 		
 		it('a blog can be created', function() {
-			const newBlog = {
-				title: 'test-title',
-				author: 'test-author',
-				url: 'test-url',
-			}
-
 			cy.contains('new note')
 				.click()
 
@@ -70,6 +70,26 @@ describe('Blog app', function() {
 				.click()
 
 			cy.contains(newBlog.title && newBlog.author)
+		})
+
+		it('user can like a blog', function() {
+			cy.contains('new note')
+				.click()
+
+			cy.get('#title')
+				.type(newBlog.title)
+			cy.get('#author')
+				.type(newBlog.author)
+			cy.get('#url')
+				.type(newBlog.url)
+			
+			cy.contains('add blog')
+				.click()
+
+			cy.contains('view')
+				.click()
+			cy.contains('like')
+				.click()
 		})
 	})
 })
